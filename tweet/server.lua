@@ -1,19 +1,4 @@
-AddEventHandler('chatMessage', function(source, name, msg)
-	sm = stringsplit(msg, " ");
-	if sm[1] == "/twt" then
-		CancelEvent()
-		TriggerClientEvent('chatMessage', -1, "TWITTER | " .. name, { 30, 144, 255 }, string.sub(msg,5))
-	end
-end)
-
-function stringsplit(inputstr, sep)
-    if sep == nil then
-        sep = "%s"
-    end
-    local t={} ; i=1
-    for str in string.gmatch(inputstr, "([^"..sep.."]+)") do
-        t[i] = str
-        i = i + 1
-    end
-    return t
-end
+RegisterCommand("tweet", function(_Source, Arguments, RawInput)
+	local Source = _Source
+	TriggerClientEvent('chatMessage', -1, "TWITTER | " .. GetPlayerName(Source), { 30, 144, 255 }, table.concat(Arguments, " "))
+end, false)
